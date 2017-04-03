@@ -1,0 +1,59 @@
+document: modulemd
+version: 1
+data:
+    summary: Javascript runtime
+    description: Node.js is a platform built on Chrome's JavaScript runtime for easily building fast, scalable network applications.
+    license:
+        module: MIT
+        content: 
+            - MIT
+            - ASL 2.0
+            - ISC
+            - BSD
+    version: 6.10.1
+    dependencies:
+        buildrequires:
+            base-runtime: master
+            python-devel: f26
+            openssl-devel: f25
+            #compat-openssl10-devel: f26
+            libicu-devel: f26
+            libuv-devel: f26
+            zlib-devel: f26
+            gcc: f26
+            gcc-c++: f26
+            systemtap-sdt-devel: f26
+        requires:
+            ca-certificates: f26
+            libuv: f26
+            openssl-devel: f26
+            libicu-devel: f26
+            libuv-devel: f26
+            zlib-devel: f26
+    references:
+        community: https://fedoraproject.org/wiki/Modularity
+        documentation: https://github.com/container-images/nodejs
+        tracker: https://github.com/container-images/nodejs
+    profiles:
+        default:
+            rpms:
+                - nodejs
+                - npm
+        minimal:
+            rpms:
+                - nodejs
+    api:
+        rpms:
+            - nodejs
+            - npm
+    components:
+        rpms:
+            nodejs:
+                rationale: JavaScript runtime
+                ref: f25
+            nodejs-devel:
+                rationale: JavaScript runtime - development headers
+            nodejs-debuginfo:
+                rationale: Debug information for package nodejs
+            npm:
+                rationale: npm package manager
