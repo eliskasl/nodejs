@@ -18,9 +18,9 @@ LABEL summary="Javascript runtime." \
        name="Node.js" \
        version="6.10.1" \
        Release="1" \
-       description="Node.js is a platform built on Chrome's JavaScript runtime for easily building fast, scalable network applications." \
+       description="Node.js is a platform built on V8 JavaScript Engine for easily building fast, scalable network applications." \
        vendor="Fedora Project" \
-       io.k8s.description="Node.js is a platform built on Chrome's JavaScript runtime for easily building fast, scalable network applications." \
+       io.k8s.description="Node.js is a platform built on V8 JavaScript Engine for easily building fast, scalable network applications." \
        io.k8s.display-name="Node.js 6.10.1" \
        io.openshift.tags="nodejs"
 

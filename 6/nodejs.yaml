@@ -2,7 +2,7 @@ document: modulemd
 version: 1
 data:
     summary: Javascript runtime
-    description: Node.js is a platform built on Chrome's JavaScript runtime for easily building fast, scalable network applications.
+    description: Node.js is a platform built on V8 JavaScript Engine for easily building fast, scalable network applications.
     license:
         module: GPLv3
         content: 
