@@ -94,4 +94,33 @@ After you [Docker exec](https://docs.docker.com/engine/reference/commandline/exe
 
 ## Running in OpenShift
 
-**openshift-template.yaml** is not completed yet.
+Login
+```
+$ oc login -u developer
+```
+
+Create new project
+```
+$ oc new-project sample-project
+```
+
+Create template from YAML file
+```
+$ oc create -f openshift-template.yml
+```
+
+Create new application (nodejs-fedora is template created in previous step)
+```
+$ oc new-app nodejs-fedora -p APP_NAME=<name> -p SOURCE_REPOSITORY=<your-github-repository>
+```
+For example
+```
+$ oc new-app nodejs-fedora -p APP_NAME=my-app -p SOURCE_REPOSITORY=https://github.com/rpitonak/node-echo.git
+```
+Check if everything is ok
+```
+$ oc logs -f bc/my-app
+```
+
+## Development notes
+Currently Node.js s2i builder is hosted at rpitonak/nodejs:6. Need to update to container images docker hub in **openshift-template.yaml** in future.
