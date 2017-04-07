@@ -60,4 +60,4 @@ WORKDIR ${HOME_APP_ROOT}
 #VOLUME ['/var/spool/postfix']
 
 # Command which will start service during command `docker run`
-CMD ["usage"]
+CMD /usr/local/s2i/usage
