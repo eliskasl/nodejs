@@ -1,4 +1,4 @@
-FROM fedora:25
+FROM registry.fedoraproject.org/fedora:25
 
 # Description
 # Environment:
@@ -16,15 +16,22 @@ RUN dnf install -y --setopt=tsflags=nodocs nodejs npm && \
     dnf install -y --setopt=tsflags=nodocs findutils && \
     dnf -y clean all
 
+ENV NAME=nodejs \
+    VERSION=0 \
+    RELEASE=1 \
+    ARCH=x86_64
+
 LABEL summary="Javascript runtime." \
        name="Node.js" \
-       version="6.10.1" \
-       Release="1" \
+       version="$VERSION" \
+       release="$RELEASE.$DISTTAG" \
+       architecture="$ARCH" \
        description="Node.js is a platform built on V8 JavaScript Engine for easily building fast, scalable network applications." \
        vendor="Fedora Project" \
-       Help="For more information visit https://github.com/container-images/nodejs" \
-       Usage="s2i build <SOURCE-REPOSITORY> nodejs:6 <APP-NAME>" \
-       Org.fedoraproject.component="nodejs" \
+       BZComponent="nodejs" \
+       help="help.1" \
+       usage="s2i build <SOURCE-REPOSITORY> nodejs:6 <APP-NAME>" \
+       org.fedoraproject.component="nodejs" \
        authoritative-source-url="registry.fedoraproject.org" \
        io.k8s.description="Node.js is a platform built on V8 JavaScript Engine for easily building fast, scalable network applications." \
        io.k8s.display-name="Node.js 6.10.1" \
@@ -34,6 +41,9 @@ LABEL summary="Javascript runtime." \
 
 # Copy s2i scripts
 COPY ./.s2i/bin/ /usr/local/s2i
+
+# Add help file
+COPY root /
 
 # set enviroment variables
 # add path to npm binaries to PATH enviroment variable
