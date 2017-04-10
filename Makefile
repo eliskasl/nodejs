@@ -14,7 +14,7 @@ build-8:
 	docker build --tag=$(IMAGE_NAME):8 8/
 
 run: build
-	docker run -d $(IMAGE_NAME):6
+	docker run -d $(IMAGE_NAME)
 #	docker run -d $(IMAGE_NAME):8
 
 test:
