@@ -29,7 +29,6 @@ LABEL summary="Javascript runtime." \
        description="Node.js is a platform built on V8 JavaScript Engine for easily building fast, scalable network applications." \
        vendor="Fedora Project" \
        BZComponent="nodejs" \
-       help="help.1" \
        usage="s2i build <SOURCE-REPOSITORY> nodejs:6 <APP-NAME>" \
        org.fedoraproject.component="nodejs" \
        authoritative-source-url="registry.fedoraproject.org" \
