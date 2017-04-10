@@ -1,15 +1,16 @@
 FROM fedora:25
 
-# Provide some Dockerfile description, like is mentioned below
-# Volumes:
-#  * /var/spool/postfix -
-#  * /var/log/postfix - Postfix log directory
+# Description
 # Environment:
-#  * $MYHOSTNAME - Hostname for Postfix image
+#  * $HOME_APP_ROOT - Root directory of application
+#  * $NPM_RUN - Select an alternate / custom runtime mode, defined in your package.json file's scripts section (default: npm run "start").
+#               These user-defined run-scripts are unavailable while DEV_MODE is in use.
 # Exposed ports:
-# * 10025 - Unprivileged port used by postfix
+# * 8080 - Unprivileged port used by nodejs application
 # Additional packages
-#  * findutils are needed in case fedora:24 is loaded from docker.io.
+#  * findutils are needed to help fix permissions.
+
+MAINTAINER Rado Pitonak <rpitonak@redhat.com>
 
 RUN dnf install -y --setopt=tsflags=nodocs nodejs npm && \
     dnf install -y --setopt=tsflags=nodocs findutils && \
@@ -21,16 +22,21 @@ LABEL summary="Javascript runtime." \
        Release="1" \
        description="Node.js is a platform built on V8 JavaScript Engine for easily building fast, scalable network applications." \
        vendor="Fedora Project" \
+       Help="For more information visit https://github.com/container-images/nodejs" \
+       Usage="s2i build <SOURCE-REPOSITORY> nodejs:6 <APP-NAME>" \
+       Org.fedoraproject.component="nodejs" \
+       authoritative-source-url="registry.fedoraproject.org" \
        io.k8s.description="Node.js is a platform built on V8 JavaScript Engine for easily building fast, scalable network applications." \
        io.k8s.display-name="Node.js 6.10.1" \
-       io.openshift.tags="nodejs"
+       io.openshift.tags="nodejs, js, JavaScript" \
+       io.openshift.expose-services="8080:https" \
+       io.openshift.s2i.scripts-url="image:///usr/local/s2i"
 
-# Defines the location of S2I
-LABEL io.openshift.s2i.scripts-url="image:///usr/local/s2i"
+# Copy s2i scripts
 COPY ./.s2i/bin/ /usr/local/s2i
 
 # set enviroment variables
-# add path to npm binaries to PATH
+# add path to npm binaries to PATH enviroment variable
 ENV HOME_APP_ROOT=/opt/app-root \
     NPM_RUN=start \
     PATH=/opt/app-root/node_modules/.bin/:/opt/app-root/.npm-global/bin/:$PATH
@@ -53,11 +59,6 @@ RUN chown -R 1001:0 /opt/app-root && \
 USER 1001
 
 WORKDIR ${HOME_APP_ROOT}
-
-# VOLUME instruction creates unnamed volume and mounts it to the provided path,
-# you can override this behavior by mounting
-# a selected host directory into container: "-v <host_directory>:<container_directory>"
-#VOLUME ['/var/spool/postfix']
 
 # Command which will start service during command `docker run`
 CMD /usr/local/s2i/usage

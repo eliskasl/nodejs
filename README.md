@@ -11,6 +11,7 @@ $ make build-6
 ```
 
 ### Version 8
+**Note:** Node.js version 8 is not available yet. 
 ```
 # node.js version 8
 $ make build-8
