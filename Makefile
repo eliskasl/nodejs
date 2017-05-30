@@ -1,6 +1,7 @@
-.PHONY: build build-6 run default test
+.PHONY: build build-6 build-8 build-test run default test
 
 IMAGE_NAME = nodejs
+CANDIDATE_IMAGE_NAME=nodejs-candidate
 
 
 default: run
@@ -13,9 +14,12 @@ build-6:
 build-8:
 	docker build --tag=$(IMAGE_NAME):8 8/
 
+build-test:
+	docker build --tag=$(CANDIDATE_IMAGE_NAME) 6/
+
 run: build
 	docker run -d $(IMAGE_NAME)
 #	docker run -d $(IMAGE_NAME):8
 
-test:
-	run_test.sh
+test: build-test
+	./6/test/run
