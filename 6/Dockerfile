@@ -14,8 +14,8 @@ MAINTAINER Rado Pitonak <rpitonak@redhat.com>
 COPY repos/* /etc/yum.repos.d/
 
 RUN sed -i 's|/jkaluza/|/ralph/|g' /etc/yum.repos.d/build.repo && \
-    microdnf --nodocs --enablerepo nodejs install nodejs && \
-    microdnf --nodocs --enablerepo fedora install findutils npm tar&& \
+    microdnf --nodocs --enablerepo nodejs install nodejs npm && \
+    microdnf --nodocs --enablerepo fedora install findutils tar && \
     microdnf clean all
 
 ENV NAME=nodejs \
