@@ -1,5 +1,4 @@
-FROM registry.fedoraproject.org/fedora:25
-
+FROM baseruntime/baseruntime:latest
 # Description
 # Environment:
 #  * $HOME_APP_ROOT - Root directory of application
@@ -12,9 +11,12 @@ FROM registry.fedoraproject.org/fedora:25
 
 MAINTAINER Rado Pitonak <rpitonak@redhat.com>
 
-RUN dnf install -y --setopt=tsflags=nodocs nodejs npm && \
-    dnf install -y --setopt=tsflags=nodocs findutils && \
-    dnf -y clean all
+COPY repos/* /etc/yum.repos.d/
+
+RUN sed -i 's|/jkaluza/|/ralph/|g' /etc/yum.repos.d/build.repo && \
+    microdnf --nodocs --enablerepo nodejs install nodejs npm && \
+    microdnf --nodocs --enablerepo fedora install findutils tar && \
+    microdnf clean all
 
 ENV NAME=nodejs \
     VERSION=0 \
@@ -22,7 +24,7 @@ ENV NAME=nodejs \
     ARCH=x86_64
 
 LABEL summary="Javascript runtime." \
-       name="Node.js" \
+       name="$FGC/$NAME" \
        version="$VERSION" \
        release="$RELEASE.$DISTTAG" \
        architecture="$ARCH" \
@@ -52,9 +54,9 @@ ENV HOME_APP_ROOT=/opt/app-root \
 
 # create home directory and system user with UID 1001 GID 0 and default name
 # set user home directory to $HOME_APP_ROOT
-RUN mkdir -p ${HOME_APP_ROOT} && \
-    useradd -u 1001 -r -g 0 -d ${HOME_APP_ROOT} -s /sbin/nologin \
-    -c "Default user" default
+ RUN mkdir -p ${HOME_APP_ROOT}
+    # useradd -u 1001 -r -g 0 -d ${HOME_APP_ROOT} -s /sbin/nologin \
+    # -c "Default user" default
 
 # EXPOSE instruction exposes port from container to host.
 # Specify it during `docker run` as parameter: "-p <host_port>:<container_port>"
