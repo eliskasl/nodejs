@@ -1,0 +1,6 @@
+[nodejs]
+name=nodejs
+baseurl=https://kojipkgs.fedoraproject.org/repos/module-42d8f2a014086f64-build/latest/x86_64/
+enabled=0
+gpgcheck=false
+modules=1

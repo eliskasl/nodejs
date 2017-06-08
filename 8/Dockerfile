@@ -1,5 +1,4 @@
-FROM fedora:25
-
+FROM baseruntime/baseruntime:latest
 # Description
 # Environment:
 #  * $HOME_APP_ROOT - Root directory of application
@@ -10,28 +9,41 @@ FROM fedora:25
 # Additional packages
 #  * findutils are needed to help fix permissions.
 
-MAINTAINER Rado Pitonak <rpitonak@redhat.com>
+LABEL MAINTAINER Rado Pitonak <rpitonak@redhat.com>
 
-RUN dnf install -y --setopt=tsflags=nodocs nodejs npm && \
-    dnf install -y --setopt=tsflags=nodocs findutils && \
-    dnf -y clean all
+COPY repos/* /etc/yum.repos.d/
+
+RUN microdnf --nodocs --enablerepo nodejs install nodejs npm && \
+    microdnf --nodocs --enablerepo fedora install findutils tar && \
+    microdnf clean all
+
+ENV NAME=nodejs \
+    VERSION=0 \
+    RELEASE=1 \
+    ARCH=x86_64
 
 LABEL summary="Javascript runtime." \
-       name="Node.js" \
-       version="8.0.0" \
-       Release="1" \
+       name="$FGC/$NAME" \
+       version="$VERSION" \
+       release="$RELEASE.$DISTTAG" \
+       architecture="$ARCH" \
        description="Node.js is a platform built on V8 JavaScript Engine for easily building fast, scalable network applications." \
        vendor="Fedora Project" \
-       Org.fedoraproject.component="nodejs" \
+       com.redhat.component="$NAME" \
+       usage="s2i build <SOURCE-REPOSITORY> nodejs:8 <APP-NAME>" \
+       org.fedoraproject.component="nodejs" \
        authoritative-source-url="registry.fedoraproject.org" \
        io.k8s.description="Node.js is a platform built on V8 JavaScript Engine for easily building fast, scalable network applications." \
        io.k8s.display-name="Node.js 8.0.0" \
        io.openshift.tags="nodejs, js, JavaScript" \
-       io.openshift.expose-services="8080:https"
+       io.openshift.expose-services="8080:https" \
        io.openshift.s2i.scripts-url="image:///usr/local/s2i"
 
 # Copy s2i scripts
 COPY ./.s2i/bin/ /usr/local/s2i
+
+# Add help file
+COPY root /
 
 # set enviroment variables
 # add path to npm binaries to PATH enviroment variable
@@ -41,9 +53,7 @@ ENV HOME_APP_ROOT=/opt/app-root \
 
 # create home directory and system user with UID 1001 GID 0 and default name
 # set user home directory to $HOME_APP_ROOT
-RUN mkdir -p ${HOME_APP_ROOT} && \
-    useradd -u 1001 -r -g 0 -d ${HOME_APP_ROOT} -s /sbin/nologin \
-    -c "Default user" default
+ RUN mkdir -p ${HOME_APP_ROOT}
 
 # EXPOSE instruction exposes port from container to host.
 # Specify it during `docker run` as parameter: "-p <host_port>:<container_port>"
