@@ -1,4 +1,4 @@
-FROM baseruntime/baseruntime:latest
+FROM eliskasl/baseruntime
 # Description
 # Environment:
 #  * $HOME_APP_ROOT - Root directory of application
@@ -11,12 +11,16 @@ FROM baseruntime/baseruntime:latest
 
 MAINTAINER Rado Pitonak <rpitonak@redhat.com>
 
-COPY repos/* /etc/yum.repos.d/
+# COPY repos/* /etc/yum.repos.d/
 
-RUN sed -i 's|/jkaluza/|/ralph/|g' /etc/yum.repos.d/build.repo && \
-    microdnf --nodocs --enablerepo nodejs install nodejs npm && \
-    microdnf --nodocs --enablerepo fedora install findutils tar && \
-    microdnf clean all
+# RUN sed -i 's|/jkaluza/|/ralph/|g' /etc/yum.repos.d/build.repo && \
+#    microdnf --nodocs --enablerepo nodejs install nodejs npm && \
+#    microdnf --nodocs --enablerepo fedora install findutils tar && \
+#    microdnf clean all
+
+RUN dnf install -y nodejs npm && \
+    dnf install -y --rpm findutils tar && \
+    dnf clean all
 
 ENV NAME=nodejs \
     VERSION=0 \
