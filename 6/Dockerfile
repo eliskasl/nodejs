@@ -11,8 +11,8 @@ FROM eliskasl/baseruntime
 
 LABEL MAINTAINER Rado Pitonak <rpitonak@redhat.com>
 
-RUN dnf install -y nodejs npm && \
-    dnf install -y --rpm findutils tar && \
+RUN dnf --nodocs install -y nodejs npm && \
+    dnf --nodocs install -y --rpm findutils tar && \
     dnf clean all
 
 ENV NAME=nodejs \
