@@ -13,10 +13,6 @@ LABEL MAINTAINER Rado Pitonak <rpitonak@redhat.com>
 
 COPY repos/* /etc/yum.repos.d/
 
-#RUN microdnf --nodocs --enablerepo nodejs install nodejs npm && \
-#    microdnf --nodocs --enablerepo fedora install findutils tar && \
-#    microdnf clean all
-
 RUN dnf --nodocs --enablerepo nodejs install -y nodejs-8 npm && \
     dnf --nodocs install -y --rpm findutils tar && \
     dnf clean all
