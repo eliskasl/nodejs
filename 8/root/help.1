@@ -19,7 +19,7 @@ To pull the nodejs container run:
 .RS
 
 .nf
-# docker pull modularitycontainers/nodejs:6
+# docker pull modularitycontainers/nodejs:8
 
 .fi
 .RE
@@ -31,7 +31,7 @@ To build your Node.js application use run:
 .RS
 
 .nf
-# s2i build <SOURCE\-REPOSITORY> modularitycontainers/nodejs:6 <NAME\-OF\-APP>
+# s2i build <SOURCE\-REPOSITORY> modularitycontainers/nodejs:8 <NAME\-OF\-APP>
 
 .fi
 .RE
@@ -152,7 +152,7 @@ To build your application with using of npm proxy.
 .RS
 
 .nf
-# s2i build ./test/test\-app modularitycontainers/nodejs:6 my\-app \-\-env HTTP\_PROXY=url
+# s2i build ./test/test\-app modularitycontainers/nodejs:8 my\-app \-\-env HTTP\_PROXY=url
 
 .fi
 .RE

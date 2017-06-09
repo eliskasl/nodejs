@@ -1,25 +1,25 @@
-.PHONY: build build-6 build-8 build-test run default test
+.PHONY: build run test build-6 build-8 run-6 run-8 test-6 test-8
 
-IMAGE_NAME = nodejs
-CANDIDATE_IMAGE_NAME=nodejs-candidate
+build: build-6 build-8
 
+run: run-6 # run-8
 
-default: run
-
-build: build-6 # build-8
+test: test-6 test-8
 
 build-6:
-	docker build --tag=$(IMAGE_NAME):6 6/
+	cd ./6 && make build
 
 build-8:
-	docker build --tag=$(IMAGE_NAME):8 8/
+	cd ./8 && make build
 
-build-test:
-	docker build --tag=$(CANDIDATE_IMAGE_NAME) 6/
+run-6:
+	cd ./6 && make run
 
-run: build
-	docker run -d $(IMAGE_NAME)
-#	docker run -d $(IMAGE_NAME):8
+run-8: build-8
+	cd ./8 && make run
 
-test: build-test
-	./6/test/run
+test-6:
+	cd ./6 && make test
+
+test-8:
+	cd ./8 && make test

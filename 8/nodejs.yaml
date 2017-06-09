@@ -42,5 +42,5 @@ data:
             nodejs:
                 rationale: JavaScript runtime
                 # commit from f26 which enables bootstrapping
-                ref: b0da67b00a92f2ad570d91d6f50fb9b1786650c9
+                ref: dc97a3c480a65adec0f8ed34eb652932fa740235
                 buildorder: 0

@@ -1,25 +1,24 @@
 # Node.js s2i
-This repository contains the source for building various versions of the [node.js](https://nodejs.org/) application as a reproducible Docker image using [source-to-image](https://github.com/openshift/source-to-image). This image is port to **fedora 25** of software collections [Node.js s2i](https://github.com/sclorg/s2i-nodejs-container).
+This repository contains the source for building various versions of the [Node.js](https://nodejs.org/) application as a reproducible Docker image using [source-to-image](https://github.com/openshift/source-to-image). The Images are based on the [Base Runtime](""https://hub.docker.com/r/baseruntime/baseruntime/).For more information about modules see official [Fedora Modularity documentation](docs.pagure.org/modularity/).
 
 ## Build
 Build image with **Makefile**
 
 ### Version 6
 ```
-# node.js version 6
+# Node.js version 6
 $ make build-6
 ```
 
 ### Version 8
-**Note:** Node.js version 8 is not available yet. 
 ```
-# node.js version 8
+# Node.js version 8
 $ make build-8
 ```
 
 ## Usage
 
-Build your node.js application
+Build your Node.js application
 ```
 $ s2i build <SOURCE-REPOSITORY> nodejs:<VERSION> <NAME-OF-APP>
 ```

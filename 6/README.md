@@ -3,21 +3,21 @@
 % DATE 07.04.2017
 
 # NAME
-nodejs - source to image builder of node.js applications.
+nodejs - source to image builder of Node.js applications.
 
 # DESCRIPTION
-Image for building node.js application as reproducible Docker image using source to image.Image is based on fedora.
+Image for building Node.js application as reproducible Docker image using source to image. The Image is based on the Base Runtime.
 
 # USAGE
 
 To pull the nodejs container run:
 
-    # docker pull rpitonak/nodejs:6
+    # docker pull modularitycontainers/nodejs:6
 
-To build your node.js application use run:
+To build your Node.js application use run:
 
 
-    # s2i build <SOURCE-REPOSITORY> nodejs:6 <NAME-OF-APP>
+    # s2i build <SOURCE-REPOSITORY> modularitycontainers/nodejs:6 <NAME-OF-APP>
 
 
 To run your application in docker container:
@@ -25,7 +25,7 @@ To run your application in docker container:
 
     # docker -d run -p 8080:8080 <NAME-OF-APP>
 
-By default container is running in production mode with exposed port 8080.To change behavior see Enviroment variables section below.
+By default container is running in production mode with exposed port 8080. To change behavior see Enviroment variables section below.
 
 # ENVIRONMENT VARIABLES
 NODE_ENV=runtime_mode
@@ -76,7 +76,7 @@ To run the container in development mode with a debug port of 5454, run
 
 To build your application with using of npm proxy.
 
-    # s2i build ./test/test-app nodejs:6 my-app --env HTTP_PROXY=url
+    # s2i build ./test/test-app modularitycontainers/nodejs:6 my-app --env HTTP_PROXY=url
 
 # SECURITY IMPLICATIONS
 -d
