@@ -3,12 +3,12 @@
 
 .SH NAME
 .PP
-nodejs \- source to image builder of node.js applications.
+nodejs \- source to image builder of Node.js applications.
 
 
 .SH DESCRIPTION
 .PP
-Image for building node.js application as reproducible Docker image using source to image.Image is based on fedora.
+Image for building Node.js application as reproducible Docker image using source to image. The Image is based on the Base Runtime.
 
 
 .SH USAGE
@@ -19,19 +19,19 @@ To pull the nodejs container run:
 .RS
 
 .nf
-# docker pull rpitonak/nodejs:6
+# docker pull modularitycontainers/nodejs:6
 
 .fi
 .RE
 
 .PP
-To build your node.js application use run:
+To build your Node.js application use run:
 
 .PP
 .RS
 
 .nf
-# s2i build <SOURCE\-REPOSITORY> nodejs:6 <NAME\-OF\-APP>
+# s2i build <SOURCE\-REPOSITORY> modularitycontainers/nodejs:6 <NAME\-OF\-APP>
 
 .fi
 .RE
@@ -43,13 +43,13 @@ To run your application in docker container:
 .RS
 
 .nf
-# docker run \-d \-p 8080:8080 <NAME\-OF\-APP>
+# docker \-d run \-p 8080:8080 <NAME\-OF\-APP>
 
 .fi
 .RE
 
 .PP
-By default container is running in production mode with exposed port 8080.To change behavior see Enviroment variables section below.
+By default container is running in production mode with exposed port 8080. To change behavior see Enviroment variables section below.
 
 
 .SH ENVIRONMENT VARIABLES
@@ -63,7 +63,8 @@ DEV\_MODE=mode
 
 .PP
 NPM\_RUN=value
-            Select an alternate / custom runtime mode, defined in your \fB\fCpackage.json\fR file's
+.br
+            Select an alternate / custom runtime mode, defined in your \fB\fCpackage.json\fR file's 
 \[la]https://docs.npmjs.com/misc/scripts\[ra] section (default: npm run "start"). These user\-defined run\-scripts are unavailable while \fB\fCDEV\_MODE\fR is in use.
 
 .PP
@@ -151,7 +152,7 @@ To build your application with using of npm proxy.
 .RS
 
 .nf
-# s2i build ./test/test\-app nodejs:6 my\-app \-\-env HTTP\_PROXY=url
+# s2i build ./test/test\-app modularitycontainers/nodejs:6 my\-app \-\-env HTTP\_PROXY=url
 
 .fi
 .RE

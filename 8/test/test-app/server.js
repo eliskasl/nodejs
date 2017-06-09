@@ -21,11 +21,11 @@ var server = http.createServer(function (req, res) {
 
 		res.writeHead(200, {'Content-Type': 'text/plain'});
 
-		res.write('This is a node.js echo service v' + version + '\n');
+		res.write('This is a Node.js echo service v' + version + '\n');
 		res.write('Host: ' + req.headers.host + '\n');
 		res.write('\n');
-		res.write('node.js Production Mode: ' + (nodeEnv == 'production' ? 'yes' : 'no') + '\n');
-		res.write('node.js ' + process.version + '\n');
+		res.write('Node.js Production Mode: ' + (nodeEnv == 'production' ? 'yes' : 'no') + '\n');
+		res.write('Node.js ' + process.version + '\n');
 		res.write('Executed by npm: ' + (startedByNpm ? 'yes' : 'no') + '\n');
 		res.write('\n');
 		res.write('HTTP/' + req.httpVersion +'\n');

@@ -7,19 +7,19 @@ run: run-6 # run-8
 test: test-6 test-8
 
 build-6:
-	cd ./6; make build
+	cd ./6 && make build
 
 build-8:
-	cd ./8; make build
+	cd ./8 && make build
 
 run-6:
-	cd ./6; make run
+	cd ./6 && make run
 
 run-8: build-8
-	cd ./8; make run
+	cd ./8 && make run
 
 test-6:
-	cd ./6; make test
+	cd ./6 && make test
 
 test-8:
-	cd ./8; make test
+	cd ./8 && make test
